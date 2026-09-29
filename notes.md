@@ -14,6 +14,11 @@ PLEASE MAKE FREQUENT COMMITS AS YOU FILL OUT THIS FILE.
 - There's a get method for the code in the ConsoleColor object.
 
 ## ColorPrinter.java / ColorPrinterTest.java
+- It utilizes PrintStream, which I recall allows Java to write output into a file.
+- The ConsoleColor class is needed for this file.
+- Works similar to System.out.print() and System.out.println() except with color.
+- In the test file, I should make tests that check if the output is printed correctly
+for each color and each time I reset back to default color.
 
 ## TruffulaOptions.java / TruffulaOptionsTest.java
 
