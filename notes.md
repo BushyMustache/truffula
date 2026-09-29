@@ -33,3 +33,6 @@ for each color and each time I reset back to default color.
 if it's sorted correctly.
 
 ## AlphabeticalFileSorter.java
+- The class that'll sort the files by name alphabetically while ignoring case.
+- This will probably be the helper method for when I print sorted output in TruffulaPrinter.
+- It returns a File[] so I assume this should be used after I print to a file.
