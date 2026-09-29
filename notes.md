@@ -26,5 +26,10 @@ for each color and each time I reset back to default color.
 - I should implement tests for if exceptions are thrown correctly and if the options are set correctly.
 
 ## TruffulaPrinter.java / TruffulaPrinterTest.java
+- Prints a directory in a tree structure with indentation for each folder.
+- Color is optional so ConsoleColor and ColorPrinter is used here too.
+- I would have to implement color distinction and case-insensitive sorting.
+- I should implements tests that check if the output the right colors (if there is), indentation, and
+if it's sorted correctly.
 
 ## AlphabeticalFileSorter.java
