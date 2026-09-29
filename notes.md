@@ -21,6 +21,9 @@ PLEASE MAKE FREQUENT COMMITS AS YOU FILL OUT THIS FILE.
 for each color and each time I reset back to default color.
 
 ## TruffulaOptions.java / TruffulaOptionsTest.java
+- Acts like settings for the TruffulaPrinter like an actual printer would have options.
+- TruffulaPrinter will use this class to check if it should print hidden files or use color in the output.
+- I should implement tests for if exceptions are thrown correctly and if the options are set correctly.
 
 ## TruffulaPrinter.java / TruffulaPrinterTest.java
 
