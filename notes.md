@@ -9,6 +9,9 @@ PLEASE MAKE FREQUENT COMMITS AS YOU FILL OUT THIS FILE.
 - There'll be if statements to testify whether to "use color" or "show hidden files.
 
 ## ConsoleColor.java
+- Each color shown below has a ANSI escape code (a line of code that identifies the color?).
+- There's a constructor for a ConsoleColor object with a code String.
+- There's a get method for the code in the ConsoleColor object.
 
 ## ColorPrinter.java / ColorPrinterTest.java
 
