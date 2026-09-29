@@ -4,6 +4,9 @@ As part of Wave 0, please fill out notes for each of the below files. They are i
 PLEASE MAKE FREQUENT COMMITS AS YOU FILL OUT THIS FILE.
 
 ## App.java
+- I'm assuming it uses methods from the TruffulaOptions class since it needs a TruffuklaOptions to be created.
+- The main function of this file is to print something which is a directory tree.
+- There'll be if statements to testify whether to "use color" or "show hidden files.
 
 ## ConsoleColor.java
 
