@@ -36,12 +36,19 @@ public class ColorPrinter {
     PrintStream printStream = new PrintStream(outputStream);
 
     ColorPrinter printer = new ColorPrinter(printStream);
-    printer.setCurrentColor(ConsoleColor.RED);
+    printer.setCurrentColor(ConsoleColor.YELLOW);
 
-    String message = "I speak for the trees";
-    printer.println(message, false);
-    printer.println(message, false);
-    printer.println("hello");
+    String firstPart = "I am the Lorax. ";
+    String secondPart = "I speak for the trees, ";
+    String thirdPart = "for the trees have no tongues.";
+    String author = "- by Dr. Seuss";
+
+    printer.print(firstPart);
+    printer.setCurrentColor(ConsoleColor.GREEN);
+    printer.print(secondPart, false);
+    printer.println(thirdPart);
+    printer.print(author);
+    
     System.out.println(outputStream.toString());
   }
 
