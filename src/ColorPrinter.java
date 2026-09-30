@@ -1,3 +1,5 @@
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
@@ -28,6 +30,20 @@ public class ColorPrinter {
    * The PrintStream to which the colored output will be written.
    */
   private final PrintStream printStream;
+
+  public static void main(String[] args) {
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    PrintStream printStream = new PrintStream(outputStream);
+
+    ColorPrinter printer = new ColorPrinter(printStream);
+    printer.setCurrentColor(ConsoleColor.RED);
+
+    String message = "I speak for the trees";
+    printer.println(message, false);
+    printer.println(message, false);
+    printer.println("hello");
+    System.out.println(outputStream.toString());
+  }
 
   /**
    * Returns the current color set for the printer.
@@ -88,8 +104,13 @@ public class ColorPrinter {
    */
   public void print(String message, boolean reset) {
     // TODO: Implement this!
-    if (reset) printStream.print(currentColor + message + ConsoleColor.RESET);
-    else printStream.print(currentColor + message);
+    if (reset) {
+      printStream.print(currentColor + message + ConsoleColor.RESET);
+      currentColor = ConsoleColor.WHITE;
+    }
+    else {
+      printStream.print(currentColor + message);
+    }
   }
 
   /**
