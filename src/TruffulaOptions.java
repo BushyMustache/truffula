@@ -1,3 +1,5 @@
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -102,9 +104,21 @@ public class TruffulaOptions  {
    */
   public TruffulaOptions(String[] args) throws IllegalArgumentException, FileNotFoundException {
     // TODO: Replace the below lines with your implementation
-    root = null;
-    showHidden = false;
-    useColor = false;
+    if (args.length < 1) throw new IllegalArgumentException();
+
+    File directory = new File(args[args.length - 1]);
+    root = directory;
+
+    if (!root.exists() || !root.isDirectory()) throw new FileNotFoundException();
+
+    if (!args[0].equals("-h") && !args[0].equals("-nc")) throw new IllegalArgumentException();
+    if (!args[1].equals("-h") && !args[1].equals("-nc")) throw new IllegalArgumentException();
+
+    if (args[0].equals("-h") || args[1].equals("-h")) showHidden = true;
+    else showHidden = false;
+
+    if (args[0].equals("-nc") || args[1].equals("-nc")) useColor = false;
+    else useColor = true;
   }
 
   /**
