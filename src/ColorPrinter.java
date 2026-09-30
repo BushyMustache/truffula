@@ -1,3 +1,4 @@
+import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 /**
@@ -87,6 +88,8 @@ public class ColorPrinter {
    */
   public void print(String message, boolean reset) {
     // TODO: Implement this!
+    if (reset) printStream.print(currentColor + message + ConsoleColor.RESET);
+    else printStream.print(currentColor + message);
   }
 
   /**
