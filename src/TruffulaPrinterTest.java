@@ -12,6 +12,7 @@ import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TruffulaPrinterTest {
 
@@ -200,6 +201,112 @@ public class TruffulaPrinterTest {
         expected.append("         Dog.png").append(nl);
         expected.append("      notes.txt").append(nl);
         expected.append("      README.md").append(nl);
+        expected.append("   zebra.txt").append(nl);
+
+        assertEquals(expected.toString(), output);
+    }
+
+    @Test
+    public void testPrintTreeWithSmallOutput(@TempDir File tempDir) throws IOException {
+        File myFolder = new File(tempDir, "myFolder");
+        assertTrue(myFolder.mkdir(), "myFolder should be created");
+
+        File apple = new File(myFolder, "Apple.txt");
+        File banana = new File(myFolder, "banana.txt");
+        File zebra = new File(myFolder, "zebra.txt");
+        apple.createNewFile();
+        banana.createNewFile();
+        zebra.createNewFile();
+
+        TruffulaOptions options = new TruffulaOptions(myFolder, false, false);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(baos);
+        TruffulaPrinter printer = new TruffulaPrinter(options, printStream);
+
+        printer.printTree();
+        
+        String output = baos.toString();
+        String nl = System.lineSeparator();
+
+        StringBuilder expected = new StringBuilder();
+
+        expected.append("myFolder/").append(nl);
+        expected.append("   Apple.txt").append(nl);
+        expected.append("   banana.txt").append(nl);
+        expected.append("   zebra.txt").append(nl);
+
+        assertEquals(expected.toString(), output);
+    }
+
+    @Test
+    public void testPrintTreeWithOnlyFolders(@TempDir File tempDir) throws IOException {
+        File myFolder = new File(tempDir, "myFolder");
+        assertTrue(myFolder.mkdir(), "myFolder should be created");
+
+        File documents = new File(myFolder, "Documents");
+        assertTrue(documents.mkdir(), "Documents directory should be created");
+
+        File images = new File(documents, "images");
+        assertTrue(images.mkdir(), "images directory should be created");
+
+        TruffulaOptions options = new TruffulaOptions(myFolder, false, false);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(baos);
+        TruffulaPrinter printer = new TruffulaPrinter(options, printStream);
+
+        printer.printTree();
+        
+        String output = baos.toString();
+        String nl = System.lineSeparator();
+
+        StringBuilder expected = new StringBuilder();
+
+        expected.append("myFolder/").append(nl);
+        expected.append("   Documents/").append(nl);
+        expected.append("      images/").append(nl);
+
+        assertEquals(expected.toString(), output);
+    }
+
+    @Test
+    public void testPrintTreeWithOnlyFilesCreated(@TempDir File tempDir) throws IOException {
+
+        File apple = new File(tempDir, "Apple.txt");
+        File banana = new File(tempDir, "banana.txt");
+        File zebra = new File(tempDir, "zebra.txt");
+        apple.createNewFile();
+        banana.createNewFile();
+        zebra.createNewFile();
+
+        File readme = new File(tempDir, "README.md");
+        File notes = new File(tempDir, "notes.txt");
+        readme.createNewFile();
+        notes.createNewFile();
+
+        File cat = new File(tempDir, "cat.png");
+        File dog = new File(tempDir, "Dog.png");
+        cat.createNewFile();
+        dog.createNewFile();
+
+        TruffulaOptions options = new TruffulaOptions(tempDir, false, false);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(baos);
+        TruffulaPrinter printer = new TruffulaPrinter(options, printStream);
+
+        printer.printTree();
+        
+        String output = baos.toString();
+        String nl = System.lineSeparator();
+
+        StringBuilder expected = new StringBuilder();
+
+        expected.append(tempDir.getName() + "/").append(nl);
+        expected.append("   Apple.txt").append(nl);
+        expected.append("   banana.txt").append(nl);
+        expected.append("   cat.png").append(nl);
+        expected.append("   Dog.png").append(nl);
+        expected.append("   notes.txt").append(nl);
+        expected.append("   README.md").append(nl);
         expected.append("   zebra.txt").append(nl);
 
         assertEquals(expected.toString(), output);
