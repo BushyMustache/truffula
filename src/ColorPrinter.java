@@ -46,7 +46,6 @@ public class ColorPrinter {
     printer.print(secondPart, false);
     printer.println(thirdPart);
     printer.print(author);
-    
     System.out.println(outputStream.toString());
   }
 
@@ -112,9 +111,10 @@ public class ColorPrinter {
     if (reset) {
       printStream.print(currentColor + message + ConsoleColor.RESET);
       currentColor = ConsoleColor.WHITE;
-    }
-    else {
+    } else if (currentColor != ConsoleColor.WHITE) {
       printStream.print(currentColor + message);
+    } else {
+      printStream.print(message);
     }
   }
 
