@@ -311,4 +311,71 @@ public class TruffulaPrinterTest {
 
         assertEquals(expected.toString(), output);
     }
+
+    @Test
+    public void testPrintTreeWithHiddenFileShown(@TempDir File tempDir) throws IOException {
+        File myFolder = new File(tempDir, "myFolder");
+        assertTrue(myFolder.mkdir(), "myFolder should be created");
+
+        File apple = new File(myFolder, "Apple.txt");
+        File banana = new File(myFolder, "banana.txt");
+        File zebra = new File(myFolder, "zebra.txt");
+        apple.createNewFile();
+        banana.createNewFile();
+        zebra.createNewFile();
+
+        createHiddenFile(myFolder, ".hidden.txt");
+
+        TruffulaOptions options = new TruffulaOptions(myFolder, true, false);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(baos);
+        TruffulaPrinter printer = new TruffulaPrinter(options, printStream);
+
+        printer.printTree();
+
+        String output = baos.toString();
+        String nl = System.lineSeparator();
+
+        StringBuilder expected = new StringBuilder();
+        expected.append("myFolder/").append(nl);
+        expected.append("   .hidden.txt").append(nl);
+        expected.append("   Apple.txt").append(nl);
+        expected.append("   banana.txt").append(nl);
+        expected.append("   zebra.txt").append(nl);
+
+        assertEquals(expected.toString(), output);
+    }
+
+    @Test
+    public void testPrintTreeWithHiddenFileNotShown(@TempDir File tempDir) throws IOException {
+        File myFolder = new File(tempDir, "myFolder");
+        assertTrue(myFolder.mkdir(), "myFolder should be created");
+
+        File apple = new File(myFolder, "Apple.txt");
+        File banana = new File(myFolder, "banana.txt");
+        File zebra = new File(myFolder, "zebra.txt");
+        apple.createNewFile();
+        banana.createNewFile();
+        zebra.createNewFile();
+
+        createHiddenFile(myFolder, ".hidden.txt");
+
+        TruffulaOptions options = new TruffulaOptions(myFolder, false, false);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(baos);
+        TruffulaPrinter printer = new TruffulaPrinter(options, printStream);
+
+        printer.printTree();
+
+        String output = baos.toString();
+        String nl = System.lineSeparator();
+
+        StringBuilder expected = new StringBuilder();
+        expected.append("myFolder/").append(nl);
+        expected.append("   Apple.txt").append(nl);
+        expected.append("   banana.txt").append(nl);
+        expected.append("   zebra.txt").append(nl);
+
+        assertEquals(expected.toString(), output);
+    }
 }
