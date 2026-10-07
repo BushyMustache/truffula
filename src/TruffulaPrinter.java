@@ -122,7 +122,7 @@ public class TruffulaPrinter {
   }
 
   private void printDirectory(File root, String indentation, int count, List<ConsoleColor> colors) {
-    File[] fileArray = root.listFiles();
+    File[] fileArray = AlphabeticalFileSorter.sort(root.listFiles());
     List<File> directory = new ArrayList<>();
 
     for (File file : fileArray) directory.add(file);
