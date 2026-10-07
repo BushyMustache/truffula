@@ -122,11 +122,14 @@ public class TruffulaPrinter {
   }
 
   private void printDirectory(File root, String indentation, int count, List<ConsoleColor> colors) {
-    File[] fileArray = AlphabeticalFileSorter.sort(root.listFiles());
+    File[] fileArray = root.listFiles();
     List<File> directory = new ArrayList<>();
 
     if (fileArray == null) return; 
-    else for (File file : fileArray) directory.add(file);
+    else {
+      fileArray = AlphabeticalFileSorter.sort(fileArray);
+      for (File file : fileArray) directory.add(file);
+    }
 
     if (count == 0) {
       if (options.isUseColor()) out.println(indentation + root.getName() + "/", true);
@@ -154,7 +157,10 @@ public class TruffulaPrinter {
     List<File> directory = new ArrayList<>();
     
     if (fileArray == null) return; 
-    else for (File file : fileArray) directory.add(file);
+    else {
+      fileArray = AlphabeticalFileSorter.sort(fileArray);
+      for (File file : fileArray) directory.add(file);
+    }
 
     if (count == 0) {
       if (options.isUseColor()) out.println(indentation + root.getName() + "/", true);
